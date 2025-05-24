@@ -443,7 +443,7 @@ nav .container {
 
 /* ===== HERO SECTION ===== */
 #hero {
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
     color: var(--light-text);
