@@ -9,6 +9,9 @@ const form = document.querySelector('.contact-form');
 const sections = document.querySelectorAll('section');
 const animatedElements = document.querySelectorAll('.about-content, .value-card, .service-card, .process-step, .gallery-item, .goal-card, .audience-card');
 
+// Track language switcher state
+let languageSwitcherMounted = false;
+
 // Sticky header on scroll
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
@@ -41,6 +44,26 @@ menuToggle.addEventListener('click', () => {
         spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
         spans[1].style.opacity = '0';
         spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+        
+        // Re-apply translations when menu is opened
+        if (typeof updateNavigation === 'function' && typeof currentLanguage === 'string') {
+            // Get current language data
+            let langData;
+            switch (currentLanguage) {
+                case "ru": langData = languageRu?.nav; break;
+                case "ro": langData = languageRo?.nav; break;
+                case "en": langData = languageEn?.nav; break;
+                default: langData = languageRu?.nav;
+            }
+            
+            // Update navigation if language data is available
+            if (langData) {
+                setTimeout(() => updateNavigation(langData), 50);
+            }
+            
+            // Move language switcher into mobile menu if needed
+            setTimeout(positionLanguageSwitcher, 100);
+        }
     } else {
         spans[0].style.transform = 'none';
         spans[1].style.opacity = '1';
@@ -59,6 +82,64 @@ navLinks.forEach(link => {
         spans[1].style.opacity = '1';
         spans[2].style.transform = 'none';
     });
+});
+
+// Position language switcher based on screen size
+function positionLanguageSwitcher() {
+    const isMobile = window.innerWidth <= 768;
+    const langSwitcher = document.querySelector('.language-switcher');
+    const navMenu = document.querySelector('.nav-menu');
+    const navContainer = document.querySelector('nav .container');
+    
+    if (langSwitcher) {
+        languageSwitcherMounted = true;
+        
+        // Remove from current parent if needed
+        if (langSwitcher.parentNode) {
+            langSwitcher.parentNode.removeChild(langSwitcher);
+        }
+        
+        // Add to appropriate container based on screen size and menu state
+        if (isMobile) {
+            navMenu.appendChild(langSwitcher);
+        } else {
+            navContainer.appendChild(langSwitcher);
+        }
+        
+        // Re-apply active state to current language button
+        if (typeof currentLanguage === 'string') {
+            const langButtons = langSwitcher.querySelectorAll('.lang-btn');
+            langButtons.forEach(button => {
+                if (button.dataset.lang === currentLanguage) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+    }
+}
+
+// Handle window resize - update language switcher position and retranslate
+window.addEventListener('resize', () => {
+    positionLanguageSwitcher();
+    
+    // Re-apply translations when screen size changes
+    if (typeof updateNavigation === 'function' && typeof currentLanguage === 'string') {
+        // Get current language data
+        let langData;
+        switch (currentLanguage) {
+            case "ru": langData = languageRu?.nav; break;
+            case "ro": langData = languageRo?.nav; break;
+            case "en": langData = languageEn?.nav; break;
+            default: langData = languageRu?.nav;
+        }
+        
+        // Update navigation if language data is available
+        if (langData) {
+            setTimeout(() => updateNavigation(langData), 100); // Small delay to ensure DOM is updated
+        }
+    }
 });
 
 // Smooth scrolling for navigation links
@@ -203,5 +284,61 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('.value-card')) {
         document.querySelector('.value-card').style.opacity = '1';
         document.querySelector('.value-card').style.transform = 'translateY(0)';
+    }
+    
+    // Position language switcher properly
+    setTimeout(positionLanguageSwitcher, 200);
+    
+    // Monitor for language switcher changes
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'childList' && !languageSwitcherMounted) {
+                const langSwitcher = document.querySelector('.language-switcher');
+                if (langSwitcher) {
+                    positionLanguageSwitcher();
+                }
+            }
+        });
+    });
+    
+    // Start observing the document body for language switcher changes
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    // Ensure translations are applied after all DOM manipulations
+    if (typeof updateNavigation === 'function' && typeof currentLanguage === 'string') {
+        // Get current language data
+        let langData;
+        switch (currentLanguage) {
+            case "ru": langData = languageRu?.nav; break;
+            case "ro": langData = languageRo?.nav; break;
+            case "en": langData = languageEn?.nav; break;
+            default: langData = languageRu?.nav;
+        }
+        
+        // Update navigation if language data is available
+        if (langData) {
+            setTimeout(() => updateNavigation(langData), 300); // Delay to ensure DOM is ready
+        }
+    }
+});
+
+// Additional event to handle after full page load
+window.addEventListener('load', () => {
+    // Final positioning of language switcher after everything is loaded
+    setTimeout(positionLanguageSwitcher, 500);
+    
+    // Final translation update
+    if (typeof updateNavigation === 'function' && typeof currentLanguage === 'string') {
+        let langData;
+        switch (currentLanguage) {
+            case "ru": langData = languageRu?.nav; break;
+            case "ro": langData = languageRo?.nav; break;
+            case "en": langData = languageEn?.nav; break;
+            default: langData = languageRu?.nav;
+        }
+        
+        if (langData) {
+            updateNavigation(langData);
+        }
     }
 });

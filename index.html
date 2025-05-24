@@ -21,6 +21,10 @@
         <script src="lang/ru.js"></script>
         <script src="lang/ro.js"></script>
         <script src="lang/en.js"></script>
+        <!-- Ensure language files are loaded before language script -->
+        <script>
+            window.languagesLoaded = true;
+        </script>
     </head>
     <body>
         <header>
@@ -35,16 +39,16 @@
                         <span></span>
                     </div>
                     <ul class="nav-menu">
-                        <li><a href="#hero">Главная</a></li>
-                        <li><a href="#about">О нас</a></li>
-                        <!-- <li><a href="#value">Почему мы</a></li> -->
-                        <li><a href="#services">Услуги</a></li>
-                        <li><a href="#process">Процесс</a></li>
-                        <!-- <li><a href="#audience-goals">Цели и Аудитория</a></li> -->
-                        <li><a href="#gallery">Портфолио</a></li>
-                        <li><a href="#testimonials">Отзывы</a></li>
+                        <li><a href="#hero" data-key="home">Главная</a></li>
+                        <li><a href="#about" data-key="about">О нас</a></li>
+                        <!-- <li><a href="#value" data-key="whyUs">Почему мы</a></li> -->
+                        <li><a href="#services" data-key="services">Услуги</a></li>
+                        <li><a href="#process" data-key="process">Процесс</a></li>
+                        <!-- <li><a href="#audience-goals" data-key="goalsAudience">Цели и Аудитория</a></li> -->
+                        <li><a href="#gallery" data-key="gallery">Портфолио</a></li>
+                        <li><a href="#testimonials" data-key="testimonials">Отзывы</a></li>
                         <li>
-                            <a href="#contact">Связаться с нами</a>
+                            <a href="#contact" data-key="contact">Связаться с нами</a>
                         </li>
                     </ul>
                 </div>
@@ -539,7 +543,7 @@
             </div>
         </footer>
 
-        <script src="js/main.js"></script>
         <script src="js/language.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>

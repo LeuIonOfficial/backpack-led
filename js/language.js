@@ -1,6 +1,33 @@
 // Language switcher functionality
 let currentLanguage = "ru"; // Default language
 
+// Initialize language when the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  const preferredLanguage = getPreferredLanguage();
+  loadLanguageData(preferredLanguage);
+  
+  // Add additional event listener for after all scripts are loaded
+  // This ensures translations apply even if DOM is manipulated by other scripts
+  window.addEventListener('load', () => {
+    // Re-apply translations after a short delay
+    setTimeout(() => {
+      // Get appropriate language data
+      let langData;
+      switch (currentLanguage) {
+        case "ru": langData = languageRu; break;
+        case "ro": langData = languageRo; break;
+        case "en": langData = languageEn; break;
+        default: langData = languageRu;
+      }
+      
+      // Update all translatable sections again
+      if (langData) {
+        updateNavigation(langData.nav);
+      }
+    }, 300);
+  });
+});
+
 // Function to get preferred language from URL or localStorage
 function getPreferredLanguage() {
   // Check URL parameter first
@@ -103,18 +130,41 @@ function loadLanguageData(lang) {
 
 // Function to update navigation
 function updateNavigation(navData) {
-  const navItems = document.querySelectorAll(".nav-menu li a");
-  if (navItems.length >= 9) {
-    navItems[0].textContent = navData.home;
-    navItems[1].textContent = navData.about;
-    navItems[2].textContent = navData.whyUs;
-    navItems[3].textContent = navData.services;
-    navItems[4].textContent = navData.process;
-    navItems[5].textContent = navData.goalsAudience;
-    navItems[6].textContent = navData.gallery;
-    navItems[7].textContent = navData.testimonials;
-    navItems[8].textContent = navData.contact;
-  }
+  // Update all navigation links using data-key attributes
+  document.querySelectorAll(".nav-menu a[data-key]").forEach(link => {
+    const key = link.getAttribute('data-key');
+    if (navData[key]) {
+      link.textContent = navData[key];
+    }
+  });
+  
+  // Fallback to using href attributes for any links without data-key
+  document.querySelectorAll(".nav-menu a:not([data-key])").forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === '#hero') link.textContent = navData.home;
+    if (href === '#about') link.textContent = navData.about;
+    if (href === '#value') link.textContent = navData.whyUs;
+    if (href === '#services') link.textContent = navData.services;
+    if (href === '#process') link.textContent = navData.process;
+    if (href === '#audience-goals') link.textContent = navData.goalsAudience;
+    if (href === '#gallery') link.textContent = navData.gallery;
+    if (href === '#testimonials') link.textContent = navData.testimonials;
+    if (href === '#contact') link.textContent = navData.contact;
+  });
+  
+  // Also update footer navigation links that might not have data-key attributes
+  document.querySelectorAll(".footer-links a").forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === '#hero') link.textContent = navData.home;
+    if (href === '#about') link.textContent = navData.about;
+    if (href === '#value') link.textContent = navData.whyUs;
+    if (href === '#services') link.textContent = navData.services;
+    if (href === '#process') link.textContent = navData.process;
+    if (href === '#audience-goals') link.textContent = navData.goalsAudience;
+    if (href === '#gallery') link.textContent = navData.gallery;
+    if (href === '#testimonials') link.textContent = navData.testimonials;
+    if (href === '#contact') link.textContent = navData.contact;
+  });
 }
 
 // Function to update hero section
@@ -415,31 +465,31 @@ function updateLanguageSwitcher(langSwitcherData) {
     ruButton.className = "lang-btn";
     ruButton.dataset.lang = "ru";
     ruButton.textContent = langSwitcherData.ru;
+    ruButton.setAttribute('aria-label', 'Русский язык');
     ruButton.addEventListener("click", () => switchLanguage("ru"));
 
     const roButton = document.createElement("button");
     roButton.className = "lang-btn";
     roButton.dataset.lang = "ro";
     roButton.textContent = langSwitcherData.ro;
+    roButton.setAttribute('aria-label', 'Limba română');
     roButton.addEventListener("click", () => switchLanguage("ro"));
 
     const enButton = document.createElement("button");
     enButton.className = "lang-btn";
     enButton.dataset.lang = "en";
     enButton.textContent = langSwitcherData.en;
+    enButton.setAttribute('aria-label', 'English language');
     enButton.addEventListener("click", () => switchLanguage("en"));
 
     langSwitcher.appendChild(ruButton);
     langSwitcher.appendChild(roButton);
     langSwitcher.appendChild(enButton);
 
-    // Add language switcher to navigation
-    const navContainer = document.querySelector("nav .container");
-    if (navContainer) {
-      navContainer.appendChild(langSwitcher);
-
-      // Add CSS for language switcher
+    // Add CSS for language switcher if not already added
+    if (!document.getElementById('language-switcher-styles')) {
       const style = document.createElement("style");
+      style.id = 'language-switcher-styles';
       style.textContent = `
                 .language-switcher {
                     display: flex;
@@ -470,14 +520,37 @@ function updateLanguageSwitcher(langSwitcherData) {
 
                 @media (max-width: 768px) {
                     .language-switcher {
-                        position: absolute;
-                        top: 15px;
-                        right: 70px;
+                        margin: 20px 0 10px;
+                        padding-top: 15px;
+                        border-top: 1px solid rgba(255, 255, 255, 0.1);
+                        width: 100%;
+                        justify-content: center;
+                    }
+                    
+                    .lang-btn {
+                        padding: 8px 15px;
                     }
                 }
             `;
       document.head.appendChild(style);
     }
+  }
+  
+  // Position the language switcher based on screen size
+  const isMobile = window.innerWidth <= 768;
+  const navMenu = document.querySelector(".nav-menu");
+  const navContainer = document.querySelector("nav .container");
+  
+  // Remove from current parent if it exists
+  if (langSwitcher.parentNode) {
+    langSwitcher.parentNode.removeChild(langSwitcher);
+  }
+  
+  // Add to appropriate container based on screen size
+  if (isMobile && navMenu) {
+    navMenu.appendChild(langSwitcher);
+  } else if (navContainer) {
+    navContainer.appendChild(langSwitcher);
   }
 
   // Update active state
@@ -495,6 +568,19 @@ function updateLanguageSwitcher(langSwitcherData) {
 function switchLanguage(lang) {
   if (["ru", "ro", "en"].includes(lang) && lang !== currentLanguage) {
     loadLanguageData(lang);
+    
+    // Always force a re-translation for all menus regardless of device
+    // Get appropriate language data
+    let langData;
+    switch (lang) {
+      case "ru": langData = languageRu; break;
+      case "ro": langData = languageRo; break;
+      case "en": langData = languageEn; break;
+      default: langData = languageRu;
+    }
+    
+    // Update navigation again to ensure all menus are translated
+    updateNavigation(langData.nav);
   }
 }
 
