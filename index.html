@@ -435,34 +435,23 @@
                     <div class="cta-content">
                         <h2>Готовы запустить первую рекламную кампанию?</h2>
                         <p>Оставьте заявку — мы свяжемся в течение 1 часа.</p>
-                        <form class="contact-form">
-                            <div class="form-group">
-                                <input
-                                    type="text"
-                                    placeholder="Ваше имя"
-                                    required
-                                />
-                            </div>
-                            <div class="form-group">
-                                <input
-                                    type="email"
-                                    placeholder="Ваш email"
-                                    required
-                                />
-                            </div>
-                            <div class="form-group">
-                                <input type="tel" placeholder="Ваш телефон" />
-                            </div>
-                            <div class="form-group">
-                                <textarea
-                                    placeholder="Расскажите о бизнесе и целях"
-                                    rows="4"
-                                ></textarea>
-                            </div>
-                            <button type="submit" class="btn-primary">
-                                Отправить заявку
-                            </button>
-                        </form>
+                        <!-- <form class="contact-form" action="https://script.google.com/macros/s/AKfycbw5VjkmW0BavVvXaCuGyvNcRomuwjxnavYpPW2Ch9-9HOigrz0R9wVqyqJnHBTHAY1_uw/exec" method="POST"> -->
+                            <form class="contact-form" method="POST" action="https://script.google.com/macros/s/AKfycbw5VjkmW0BavVvXaCuGyvNcRomuwjxnavYpPW2Ch9-9HOigrz0R9wVqyqJnHBTHAY1_uw/exec">
+  <div class="form-group">
+    <input type="text" name="name" placeholder="Ваше имя" required />
+  </div>
+  <div class="form-group">
+    <input type="email" name="email" placeholder="Ваш email" required />
+  </div>
+  <div class="form-group">
+    <input type="tel" name="phone" placeholder="Ваш телефон" />
+  </div>
+  <div class="form-group">
+    <textarea name="message" placeholder="Расскажите о бизнесе и целях" rows="4"></textarea>
+  </div>
+  <button type="submit" class="btn-primary">Отправить заявку</button>
+</form>
+
                         <div class="social-cta">
                             <p>Или свяжитесь с нами напрямую:</p>
                             <div class="social-links">
