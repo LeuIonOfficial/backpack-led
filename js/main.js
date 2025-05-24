@@ -8,9 +8,15 @@ const testimonialDots = document.querySelectorAll('.nav-dot');
 const form = document.querySelector('.contact-form');
 const sections = document.querySelectorAll('section');
 const animatedElements = document.querySelectorAll('.about-content, .value-card, .service-card, .process-step, .gallery-item, .goal-card, .audience-card');
+const heroSection = document.querySelector('#hero');
 
 // Track language switcher state
 let languageSwitcherMounted = false;
+
+// Detect Telegram WebApp or other in-app browsers
+const isTelegramWebview = navigator.userAgent.includes('Telegram') || 
+                          window.Telegram || 
+                          window.TelegramWebviewProxy;
 
 // Sticky header on scroll
 window.addEventListener('scroll', () => {
@@ -150,8 +156,21 @@ navLinks.forEach(link => {
         const targetId = this.getAttribute('href');
         const targetSection = document.querySelector(targetId);
         
+        // Adjust scroll offset based on viewport and browser type
+        let offsetAdjustment = 80;
+        
+        // Special handling for Telegram WebView
+        if (isTelegramWebview) {
+            offsetAdjustment = 100; // Increased offset for Telegram
+        }
+        
+        // Adjust for mobile devices
+        if (window.innerWidth <= 768) {
+            offsetAdjustment = isTelegramWebview ? 80 : 70;
+        }
+        
         window.scrollTo({
-            top: targetSection.offsetTop - 80,
+            top: targetSection.offsetTop - offsetAdjustment,
             behavior: 'smooth'
         });
         
@@ -170,9 +189,12 @@ navLinks.forEach(link => {
 function highlightActiveNavItem() {
     const scrollPosition = window.scrollY;
     
+    // Adjust offset for different browsers
+    let offsetAdjustment = isTelegramWebview ? 120 : 100;
+    
     // Find the current section
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
+        const sectionTop = section.offsetTop - offsetAdjustment;
         const sectionHeight = section.offsetHeight;
         const sectionId = section.getAttribute('id');
         
@@ -263,6 +285,16 @@ const animateOnScroll = () => {
 document.addEventListener('DOMContentLoaded', () => {
     // Initial styles already set in CSS
     
+    // Apply special styling for Telegram WebView
+    if (isTelegramWebview) {
+        document.body.classList.add('telegram-webview');
+        
+        // Ensure proper initial positioning for Telegram WebView
+        if (heroSection) {
+            heroSection.style.paddingTop = '100px';
+        }
+    }
+    
     // Trigger animations on load
     animateOnScroll();
     
@@ -320,6 +352,13 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => updateNavigation(langData), 300); // Delay to ensure DOM is ready
         }
     }
+    
+    // For Telegram WebView, scroll slightly down to ensure header visibility
+    if (isTelegramWebview) {
+        setTimeout(() => {
+            window.scrollTo(0, 1);
+        }, 500);
+    }
 });
 
 // Additional event to handle after full page load
@@ -339,6 +378,28 @@ window.addEventListener('load', () => {
         
         if (langData) {
             updateNavigation(langData);
+        }
+    }
+    
+    // Handle hash navigation (for direct links to sections)
+    if (window.location.hash) {
+        const targetId = window.location.hash;
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            // Adjust offset for Telegram WebView
+            let offsetAdjustment = isTelegramWebview ? 100 : 80;
+            if (window.innerWidth <= 768) {
+                offsetAdjustment = isTelegramWebview ? 80 : 70;
+            }
+            
+            // Delay the scroll to ensure everything is fully loaded
+            setTimeout(() => {
+                window.scrollTo({
+                    top: targetElement.offsetTop - offsetAdjustment,
+                    behavior: 'smooth'
+                });
+            }, 800);
         }
     }
 });

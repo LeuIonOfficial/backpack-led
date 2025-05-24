@@ -46,6 +46,29 @@
     }
 }
 
+/* ===== TELEGRAM WEBVIEW STYLES ===== */
+.telegram-webview #hero {
+    padding-top: 100px; /* Extra padding for Telegram WebView */
+}
+
+.telegram-webview header {
+    background-color: var(--dark-color); /* Always show header background in Telegram */
+}
+
+.telegram-webview .section-padding {
+    padding-top: 14rem; /* Extra padding for sections in Telegram */
+}
+
+@media (max-width: 768px) {
+    .telegram-webview #hero {
+        padding-top: 80px; /* Adjusted for mobile Telegram WebView */
+    }
+    
+    .telegram-webview .section-padding {
+        padding-top: 12rem;
+    }
+}
+
 /* ===== GLOBAL STYLES ===== */
 
 /* Styles for About Us section */
@@ -180,8 +203,9 @@
 html {
     scroll-behavior: smooth;
     font-size: 62.5%; /* 10px = 1rem */
-    scroll-padding-top: 80px; /* Accounts for fixed header */
+    scroll-padding-top: 100px; /* Increased padding to account for fixed header */
     overflow-x: hidden;
+    height: 100%;
 }
 
 body {
@@ -190,6 +214,9 @@ body {
     line-height: 1.7;
     color: var(--text-color);
     overflow-x: hidden;
+    min-height: 100%;
+    position: relative;
+    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape */
 }
 
 .container {
@@ -239,6 +266,8 @@ img {
     padding: 10rem 0;
     transition: var(--scroll-transition);
     will-change: transform, opacity;
+    padding-top: 12rem; /* Extra padding at the top of each section */
+    position: relative; /* Ensure proper stacking context */
 }
 
 .section-header {
@@ -363,6 +392,8 @@ header {
     z-index: 1000;
     background-color: transparent;
     transition: var(--transition);
+    -webkit-backdrop-filter: blur(0); /* Better performance on mobile */
+    backdrop-filter: blur(0);
 }
 
 header.scrolled {
@@ -445,11 +476,13 @@ nav .container {
 
 /* ===== HERO SECTION ===== */
 #hero {
-    height: 100%;
+    min-height: 100vh;
+    min-height: -webkit-fill-available; /* Fix for iOS Safari and some mobile browsers */
     display: flex;
     align-items: center;
     color: var(--light-text);
     position: relative;
+    padding-top: 80px; /* Account for fixed header */
 }
 
 .hero-content {
@@ -1005,6 +1038,12 @@ footer {
 @media (max-width: 768px) {
     html {
         font-size: 55%;
+        scroll-padding-top: 70px; /* Adjusted for mobile */
+    }
+    
+    #hero {
+        padding-top: 60px; /* Adjusted for mobile header */
+        min-height: 100vh; /* Ensure full height on mobile */
     }
 
     .menu-toggle {

@@ -2,7 +2,11 @@
 <html lang="ru" id="documentRoot">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <title>
             LED-рюкзаки и реклама в Telegram — Современная реклама в Кишинёве
         </title>
@@ -26,7 +30,7 @@
             window.languagesLoaded = true;
         </script>
     </head>
-    <body>
+    <body ontouchstart="">
         <header>
             <nav>
                 <div class="container">
@@ -57,7 +61,7 @@
 
         <main>
             <!-- Hero Section -->
-            <section id="hero" class="parallax-section">
+            <section id="hero" class="parallax-section" style="padding-top: var(--safe-area-inset-top, 80px);">
                 <div class="parallax-bg"></div>
                 <div class="container hero-content">
                     <div class="hero-text">
@@ -543,6 +547,20 @@
             </div>
         </footer>
 
+        <script>
+            // Add CSS variable for safe area insets for iOS devices and Telegram WebView
+            function updateSafeAreaInsets() {
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    :root {
+                        --safe-area-inset-top: env(safe-area-inset-top, 80px);
+                        --safe-area-inset-bottom: env(safe-area-inset-bottom, 20px);
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            updateSafeAreaInsets();
+        </script>
         <script src="js/language.js"></script>
         <script src="js/main.js"></script>
     </body>
