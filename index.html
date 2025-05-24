@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" id="documentRoot">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,13 +17,17 @@
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
             rel="stylesheet"
         />
+        <!-- Language files -->
+        <script src="lang/ru.js"></script>
+        <script src="lang/ro.js"></script>
+        <script src="lang/en.js"></script>
     </head>
     <body>
         <header>
             <nav>
                 <div class="container">
                     <div class="logo">
-                        <h1>LED<span>Promo</span></h1>
+                        <h1>SONIC<span>Media</span></h1>
                     </div>
                     <div class="menu-toggle">
                         <span></span>
@@ -32,9 +36,11 @@
                     </div>
                     <ul class="nav-menu">
                         <li><a href="#hero">Главная</a></li>
-                        <li><a href="#value">Почему мы</a></li>
+                        <li><a href="#about">О нас</a></li>
+                        <!-- <li><a href="#value">Почему мы</a></li> -->
                         <li><a href="#services">Услуги</a></li>
                         <li><a href="#process">Процесс</a></li>
+                        <!-- <li><a href="#audience-goals">Цели и Аудитория</a></li> -->
                         <li><a href="#gallery">Портфолио</a></li>
                         <li><a href="#testimonials">Отзывы</a></li>
                         <li>
@@ -78,6 +84,34 @@
                         <span class="scroll"></span>
                     </span>
                     <p>Листайте вниз</p>
+                </div>
+            </section>
+
+            <!-- About Us Section -->
+            <section id="about" class="section-padding">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>О нас</h2>
+                    </div>
+                    <div class="about-content">
+                        <p>
+                            Мы — молодое и креативное рекламное агентство нового
+                            поколения, специализирующееся на
+                            внимание-привлекающей наружной рекламе с помощью
+                            LED-рюкзаков, а также digital-продвижении в
+                            популярных каналах коммуникации.
+                        </p>
+                        <p>
+                            Наша цель — делать вашу рекламу максимально
+                            заметной, эффективной и доступной.
+                        </p>
+                        <p>
+                            Мы работаем там, где находится ваша аудитория — на
+                            улицах, в Telegram и в чат-ботах.
+                        </p>
+                        <p>Мы — за смелые идеи, инновации и результат.</p>
+                        <p>Работайте с нами — и вас заметят.</p>
+                    </div>
                 </div>
             </section>
 
@@ -175,37 +209,102 @@
                     <div class="section-header">
                         <h2>Как это работает</h2>
                         <p>Пошаговый путь от идеи до заявок</p>
+                        <p>
+                            Вы можете выбрать весь комплекс услуг или только то,
+                            что нужно именно вам.
+                        </p>
                     </div>
                     <div class="process-steps">
                         <div class="process-step">
                             <div class="step-number">01</div>
                             <h3>Заявка</h3>
                             <p>
-                                Вы оставляете запрос с целями и описанием
-                                бизнеса
+                                Вы оставляете запрос с описанием бизнеса, целями
+                                и нужным форматом продвижения.
                             </p>
                         </div>
                         <div class="process-step">
                             <div class="step-number">02</div>
                             <h3>Концепт</h3>
                             <p>
-                                Мы создаём идею рекламы, визуалы и путь клиента
+                                Мы создаём идею рекламы, визуалы, сообщения и
+                                путь клиента (Customer Journey).
                             </p>
                         </div>
                         <div class="process-step">
                             <div class="step-number">03</div>
                             <h3>Продвижение</h3>
                             <p>
-                                Активируем LED-рюкзаки, Telegram-рекламу и
-                                чат-боты
+                                Запускаем рекламу через LED-рюкзаки,
+                                Telegram-каналы, чат-боты или другие каналы. Вы
+                                можете выбрать один инструмент или весь пакет.
                             </p>
                         </div>
                         <div class="process-step">
                             <div class="step-number">04</div>
-                            <p>
-                                Собираем лиды в Telegram и передаём в вашу CRM
-                            </p>
                             <h3>Лиды</h3>
+                            <p>
+                                Для подходящих каналов, мы собираем заявки через
+                                Telegram и передаём их напрямую в вашу CRM или
+                                мессенджер.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audience Goals Section -->
+            <section id="audience-goals" class="section-padding">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Какая у вас цель рекламы?</h2>
+                    </div>
+                    <div class="goals-grid">
+                        <div class="goal-card">
+                            <div class="goal-icon">✔</div>
+                            <p>
+                                Создать WOW-эффект и выделиться среди
+                                конкурентов?
+                            </p>
+                        </div>
+                        <div class="goal-card">
+                            <div class="goal-icon">✔</div>
+                            <p>Повысить продажи?</p>
+                        </div>
+                        <div class="goal-card">
+                            <div class="goal-icon">✔</div>
+                            <p>Увеличить узнаваемость бренда?</p>
+                        </div>
+                        <div class="goal-card">
+                            <div class="goal-icon">✔</div>
+                            <p>Вывести новый продукт на рынок?</p>
+                        </div>
+                    </div>
+
+                    <div class="section-header" style="margin-top: 40px">
+                        <h2>Кто ваша аудитория?</h2>
+                    </div>
+                    <div class="audience-grid">
+                        <div class="audience-card">
+                            <div class="audience-icon">🎯</div>
+                            <p>
+                                Жители конкретного района, города или всей
+                                страны?
+                            </p>
+                        </div>
+                        <div class="audience-card">
+                            <div class="audience-icon">🎯</div>
+                            <p>Пешеходы или посетители торговых центров?</p>
+                        </div>
+                        <div class="audience-card">
+                            <div class="audience-icon">🎯</div>
+                            <p>Молодежь, бизнесмены, семьи с детьми?</p>
+                        </div>
+                        <div class="audience-card">
+                            <div class="audience-icon">🎯</div>
+                            <p>
+                                Люди с определенными интересами и стилем жизни?
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -359,10 +458,16 @@
                         <div class="social-cta">
                             <p>Или свяжитесь с нами напрямую:</p>
                             <div class="social-links">
-                                <a href="#" class="social-btn telegram">
+                                <a
+                                    href="https://t.me/ioxa_a"
+                                    class="social-btn telegram"
+                                >
                                     <i class="fab fa-telegram"></i> Telegram
                                 </a>
-                                <a href="#" class="social-btn whatsapp">
+                                <a
+                                    href="https://wa.me/37360141023"
+                                    class="social-btn whatsapp"
+                                >
                                     <i class="fab fa-whatsapp"></i> WhatsApp
                                 </a>
                             </div>
@@ -376,7 +481,7 @@
             <div class="container">
                 <div class="footer-content">
                     <div class="footer-logo">
-                        <h2>LED<span>Promo</span></h2>
+                        <h2>SONIC<span>Media</span></h2>
                         <p>Современные рекламные решения в Кишинёве</p>
                     </div>
                     <div class="footer-links">
@@ -399,7 +504,13 @@
                             <h3>О нас</h3>
                             <ul>
                                 <li><a href="#hero">Главная</a></li>
-                                <li><a href="#value">О нас</a></li>
+                                <li><a href="#about">О нас</a></li>
+                                <li><a href="#value">Почему мы</a></li>
+                                <li>
+                                    <a href="#audience-goals"
+                                        >Цели и Аудитория</a
+                                    >
+                                </li>
                                 <li><a href="#gallery">Портфолио</a></li>
                                 <li><a href="#contact">Контакты</a></li>
                             </ul>
@@ -412,11 +523,11 @@
                                     Кишинёв, Молдова
                                 </li>
                                 <li>
-                                    <i class="fas fa-phone"></i> +373 XX XXX XXX
+                                    <i class="fas fa-phone"></i> +37360141023
                                 </li>
                                 <li>
                                     <i class="fas fa-envelope"></i>
-                                    info@ledpromo.md
+                                    sonicmediamd@gmail.com
                                 </li>
                             </ul>
                         </div>
@@ -429,5 +540,6 @@
         </footer>
 
         <script src="js/main.js"></script>
+        <script src="js/language.js"></script>
     </body>
 </html>

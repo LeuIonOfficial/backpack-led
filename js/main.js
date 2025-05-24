@@ -7,7 +7,7 @@ const navLinks = document.querySelectorAll('.nav-menu a');
 const testimonialDots = document.querySelectorAll('.nav-dot');
 const form = document.querySelector('.contact-form');
 const sections = document.querySelectorAll('section');
-const animatedElements = document.querySelectorAll('.value-card, .service-card, .process-step, .gallery-item');
+const animatedElements = document.querySelectorAll('.about-content, .value-card, .service-card, .process-step, .gallery-item, .goal-card, .audience-card');
 
 // Sticky header on scroll
 window.addEventListener('scroll', () => {
