@@ -47,11 +47,11 @@ The website uses CSS variables for colors, which can be easily changed in the `s
 
 ```css
 :root {
-    --primary-color: #3498db;
-    --secondary-color: #2ecc71;
-    --dark-color: #1a1a2e;
-    --light-color: #f9f9f9;
-    /* Other variables... */
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --dark-color: #1a1a2e;
+  --light-color: #f9f9f9;
+  /* Other variables... */
 }
 ```
 
@@ -66,6 +66,7 @@ Edit the content in `index.html` to reflect your business information, services,
 ## Browser Compatibility
 
 The website is compatible with all modern browsers, including:
+
 - Chrome
 - Firefox
 - Safari
